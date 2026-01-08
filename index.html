@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Správa domácího rozpočtu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+<div class="container" id="page_UserSelection">
+
+    <h1>Správa domácího rozpočtu</h1>
+    <h2>Vyberte uživatele</h2>
+    <div id="userList"></div>
+    <h3>Vytvoření nového uživatele</h3>
+    <input type="text" id="newUsername" placeholder="Zadej jméno">
+    <button id="btn_createUser">Vytvořit</button>
+
+</div>
+
+<div class="container" id="page_Transactions" style="display: none;">
+    <h2>Přihlášen jako: <span id="currentUserName"></span></h2>
+    <button id="btn_logout">Odhlásit se</button>
+    
+    <h3>Zadej novou transakci</h3>
+    
+    <form id="formular">
+    <label>Datum:</label>
+    <input type="date" id="trans_Date">
+    <br><br>
+    
+    <label>Typ:</label>
+    <select id="trans_Type">
+        <option value="Příjem">Příjem</option>
+        <option value="Výdaj">Výdaj</option>
+    </select>
+    <br><br>
+    
+    <label>Popis:</label>
+    <input type="text" id="trans_Popis" placeholder="napiš sem popis">
+    <br><br>
+    
+    <label>Částka:</label>
+    <input type="number" id="trans_Amount" placeholder="0">
+    <br><br>
+    
+    <label>Měna:</label>
+    <select id="trans_Currency">
+        <option value="CZK">Kč</option>
+        <option value="EUR">€ (EUR)</option>
+        <option value="USD">$ (USD)</option>
+    </select>
+    <br><br>
+    
+    <button type="submit">Přidat transakci</button>
+
+    <h3>Transakce</h3>
+    <table class="tabulka_transakce">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Typ</th>
+                <th>Popis</th>
+                <th>Částka</th>
+            </tr>
+        </thead>
+        <tbody id="tabulka_transakce_radky">
+
+        </tbody>
+    </table>
+</form>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
