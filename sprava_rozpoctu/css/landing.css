@@ -1,0 +1,132 @@
+.landing-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.landing-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.landing-nav-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e2a3a;
+}
+
+.landing-nav-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-landing-login {
+    padding: 9px 20px;
+    font-size: 14px;
+    color: #555;
+    border-radius: 7px;
+    transition: color 0.2s;
+}
+
+.btn-landing-login:hover { color: #1e2a3a; }
+
+.btn-landing-register {
+    padding: 9px 20px;
+    font-size: 14px;
+    background: #4e9af1;
+    color: #fff;
+    border-radius: 7px;
+    transition: background 0.2s;
+}
+
+.btn-landing-register:hover { background: #2f80e0; }
+
+
+
+.landing-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.landing-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1e2a3a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.landing-subtitle {
+    font-size: 18px;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 36px;
+}
+
+.btn-landing {
+    display: inline-block;
+    padding: 16px 36px;
+    background: #4e9af1;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-landing:hover { background: #2f80e0; }
+
+
+.landing-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 0 60px 60px;
+}
+
+.feature-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
+.feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e2a3a;
+    margin-bottom: 10px;
+}
+
+.feature-text {
+    font-size: 16px;
+    color: #888;
+    line-height: 1.6;
+}
+
+
+
+.landing-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #aaa;
+    border-top: 1px solid #e8e8e8;
+    background: #fff;
+}

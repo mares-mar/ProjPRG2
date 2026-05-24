@@ -1,0 +1,15 @@
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.chart-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+canvas {
+    max-width: 100% !important; 
+}
