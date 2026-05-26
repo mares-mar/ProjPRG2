@@ -1,6 +1,11 @@
 <?php
 session_start();
 $active_page = 'statistiky';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /sprava_rozpoctu/login.php');
+    exit();
+}
 require_once 'config.php';
 
 $user_id = $_SESSION['user_id'];
