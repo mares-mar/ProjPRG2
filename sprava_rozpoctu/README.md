@@ -65,3 +65,48 @@ Tabulka transactions je propojena s users přes foreign key user_id.
 **Historie** – seznam všech transakcí s filtrováním podle typu (příjmy / výdaje). Každý záznam lze inline editnout nebo smazat. Editace funguje přes AJAX.
 
 **Statistiky** – sloupcový graf příjmů a výdajů za posledních 6 měsíců a koláčový graf výdajů podle kategorií. Grafy jsou vykresleny pomocí Chart.js, data se předávají ze serveru jako JSON.
+
+
+## Ukázky obrazovek
+
+### Landing page
+![alt text](screenshots/landing.png)
+
+### Login a registrace
+
+![alt text](screenshots/logandreg.png)
+
+### Dashboard
+
+![alt text](screenshots/dashboard.png)
+
+### Přidání záznamu
+
+![alt text](screenshots/pridat.png)
+
+### Historie
+
+![alt text](screenshots/historie.png)
+
+### Statistiky a grafy
+
+pro ukázku grafů jsou zadané testovací transakce
+
+![alt text](screenshots/statistiky.png)
+
+## Instalace a spuštění
+
+1. Nainstalujte XAMPP a spusťte Apache a MySQL.
+2. Zkopírujte složku `sprava_rozpoctu/` do `C:\xampp\htdocs\`.
+3. V phpMyAdmin vytvořte databázi `home_budget`.
+4. Importujte soubor `home_budget.sql`.
+5. Otevřete `http://localhost/sprava_rozpoctu` v prohlížeči.
+6. Zaregistrujte účet.
+
+## Závěr
+
+Aplikace byla vytvořena podle zadání. Při vývoji aplikace jsem zjistil že programování GUI mě né zcela vyhovuje, a proto
+jsem spíše kladl důraz na bezpečnost a funkcionalitu.
+
+Do budoucna bych chtěl aplikaci rozšířit o funkční export a import přes CSV, zapracování opakujících se transakcí,
+dobré by taky bylo rozšíření o správu více účtů pro členy jedné rodiny.
