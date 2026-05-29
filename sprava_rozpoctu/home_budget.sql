@@ -62,7 +62,10 @@ CREATE TABLE `transactions` (
   `category` varchar(50) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `is_recurring` tinyint(1) DEFAULT 0,
+  `frequency` enum('weekly','monthly') DEFAULT NULL,
+  `next_run` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -107,7 +110,6 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -118,19 +120,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pro tabulku `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pro tabulku `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pro tabulku `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Omezení pro exportované tabulky

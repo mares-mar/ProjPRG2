@@ -40,16 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $check_query  = "SELECT id FROM users WHERE email = '$email'";
         $check_email = mysqli_query($conn, $check_query);
 
-        $check_query = "SELECT id FROM users WHERE username = '$username'";
-        $check_username = mysqli_query($conn, $check_query);
-
-
-
-        if (mysqli_num_rows($check_username) > 0) {
-            $error_message = "Toto uživatelské jméno je již registrováno.";
-        }
-        elseif(mysqli_num_rows($check_email) > 0){
-            $error_message = "Tento email je už registrován.";
+        
+        if(mysqli_num_rows($check_email) > 0){
+            $error_message = "Registraci se nepodařilo dokončit. Zkontrolujte zadané údaje.";
         } else {
 
             // hashování hesla, Password_default používá bcrypt

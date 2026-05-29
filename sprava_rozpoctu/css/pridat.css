@@ -77,3 +77,21 @@
 }
 
 .btn-submit:hover { background: #2f80e0; }
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.checkbox-group label {
+    text-transform: none;
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+}

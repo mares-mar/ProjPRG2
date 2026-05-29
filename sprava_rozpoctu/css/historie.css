@@ -103,6 +103,22 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
+    margin-right: 4px;
 }
 
 .btn-delete:hover { background: #e74c3c; color: #fff; }
+
+
+.btn-stp-recurring {
+    padding: 5px 12px;
+    background: #fef0e6;
+    color: #e67e22;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-stp-recurring:hover { background: #e67e22; color: #fff; }

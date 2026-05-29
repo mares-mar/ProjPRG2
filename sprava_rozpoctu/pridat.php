@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount      = $_POST['amount'];
     $description = $_POST['description'];
     $date        = $_POST['date'];
+    $is_recurring = isset($_POST['is_recurring']) ? 1 : 0;
+    $frequency    = $is_recurring ? $_POST['frequency'] : null;
+    $next_run = match($frequency) {
+        'weekly'  => date('Y-m-d', strtotime($date . ' +1 week')),
+        'monthly' => date('Y-m-d', strtotime($date . ' +1 month')),
+        default   => null
+    };
+    
 
     if (empty($type) || empty($category) || empty($amount) || empty($date)) {
         $error_message = 'Vyplňte prosím všechna povinná pole.';
@@ -41,18 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $category    = mysqli_real_escape_string($conn, $category);
 
             $stmt = $conn->prepare(
-                "INSERT INTO transactions (user_id, type, category, amount, description, date)
-                VALUES (?,?,?,?,?,?)"
+                "INSERT INTO transactions (user_id, type, category, amount, description, date, is_recurring, frequency, next_run)
+                VALUES (?,?,?,?,?,?,?,?,?)"
             );
             if ($stmt){
                 $stmt->bind_param(
-                'issdss', //integer, string,string, decimal , string,string
+                'issdssiss', //integer, string,string, decimal , string,string,integer(tinyint/bool),string,string
                 $user_id,
                 $type,
                 $category,
                 $amount,
                 $description,
-                $date  
+                $date,
+                $is_recurring,
+                $frequency,
+                $next_run  
                 );
 
                 if ($stmt->execute()){
@@ -143,8 +154,7 @@ ob_start();
 
             <label for="amount">Částka (Kč) <span class="required">*</span></label>
             <input type="number" name="amount" id="amount"
-                   step="0.01" min="0" placeholder="0,00"
-                   value="<?php if (isset($_POST['amount'])) { echo $_POST['amount']; } ?>">
+                   step="0.01" min="0.01" placeholder="0,00" required>
 
         </div>
 
@@ -162,6 +172,23 @@ ob_start();
                    placeholder="Volitelný popis záznamu..."
                    value="<?php if (isset($_POST['description'])) { echo $_POST['description']; } ?>">
         </div>
+
+        <!--Opakující se transakce-->
+        <div class="checkbox-group">
+            <input type="checkbox" name="is_recurring" id="is_recurring">
+            <label for="is_recurring">Opakující se transakce</label>
+        </div>
+
+        <div class="form-group" id="recurring-options" style="display:none;">
+            <label for="frequency">Frekvence <span class="required">*</span></label>
+            <select name="frequency" id="frequency">
+                <option value="weekly">Týdně</option>
+                <option value="monthly">Měsíčně</option>
+                
+            </select>
+
+        </div>
+
 
         <button type="submit" class="btn-submit">Uložit záznam</button>
 

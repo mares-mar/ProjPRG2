@@ -177,7 +177,7 @@ function saveEdit(id) {
         }
     })
     .catch(function(error) {
-        alert('Chyba při ukládání, zkuste to znovu.');
+        alert("Chyba při ukládání, zkuste to znovu.");
     });
 }
 
@@ -207,4 +207,13 @@ document.querySelectorAll("input[name='type']").forEach(function(radio) {
 let checkedRadio = document.querySelector("input[name='type']:checked");
 if (checkedRadio) {
     switchCategories(checkedRadio.value);
+}
+
+//pro checkbox opakující se transakce
+let recurringCheckbox = document.getElementById("is_recurring");
+if (recurringCheckbox) {
+    recurringCheckbox.addEventListener("change", function() {
+        let options = document.getElementById("recurring-options");
+        options.style.display = this.checked ? "" : "none";
+    });
 }

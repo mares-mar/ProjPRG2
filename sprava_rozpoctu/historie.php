@@ -47,8 +47,27 @@ if (isset($_GET['delete_id'])) {
     exit();
 }
 
+
+// Zrušení opakování
+if (isset($_GET['cancel_recurring_id'])) {
+    $cancel_id = intval($_GET['cancel_recurring_id']);
+
+    $stmt_cancel = $conn->prepare(
+        "UPDATE transactions SET is_recurring = 0, frequency = NULL, next_run = NULL WHERE id = ? AND user_id = ?"
+    );
+    $stmt_cancel->bind_param('ii', $cancel_id, $user_id);
+    $stmt_cancel->execute();
+
+    header('Location: /sprava_rozpoctu/historie.php');
+    exit();
+}
+
+
 // filtrování
-if (isset($_GET['type']) && $_GET['type'] !== '') {
+if (isset($_GET['type']) && $_GET['type'] === "recurring") {
+    $filter_type = "recurring";
+    $where = "WHERE is_recurring = 1 AND user_id = $user_id";
+} else if (isset($_GET['type']) && $_GET['type'] !== '') {
     $filter_type = mysqli_real_escape_string($conn, $_GET['type']);
     $where = "WHERE type = '$filter_type' AND user_id = $user_id";
 } else {
@@ -80,6 +99,10 @@ ob_start();
     <a href="/sprava_rozpoctu/historie.php?type=expense"
        class="filter-btn <?php if ($filter_type === 'expense') { echo 'active'; } ?>">
         Výdaje
+    </a>
+    <a href="/sprava_rozpoctu/historie.php?type=recurring"
+        class="filter-btn <?php if ($filter_type === 'recurring') { echo 'active'; } ?>">
+        Opakující se
     </a>
 </div>
 
@@ -156,8 +179,14 @@ ob_start();
                 echo '<a href="/sprava_rozpoctu/historie.php?delete_id=' . $rid . '"
                          class="btn-delete"
                          onclick="return confirm(\'Opravdu chcete smazat tento záznam?\')">Smazat</a>';
-                echo '</td>';
+                
 
+                if ($row["is_recurring"]) {
+                    echo '<a href="/sprava_rozpoctu/historie.php?cancel_recurring_id=' . $rid . '"
+                            class="btn-stp-recurring" onclick="return confirm(\'Zrušit opakování?\')">Zrušit opakování</a>';
+                }
+
+                echo '</td>';
                 echo '</tr>';
             }
         } else {

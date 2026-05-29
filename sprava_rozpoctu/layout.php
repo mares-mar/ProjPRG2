@@ -11,6 +11,49 @@ if (!isset($_SESSION['user_id'])) {
 if (!isset($active_page)) {
     $active_page = "dashboard";
 }
+
+$user_id = $_SESSION['user_id'];
+
+
+// Kontrola a generování opakujících se transakcí
+$today = date('Y-m-d');
+$stmt = $conn->prepare(
+    "SELECT * FROM transactions WHERE is_recurring = 1 AND next_run <= ? AND user_id = ?"
+);
+$stmt->bind_param('si', $today, $user_id);
+$stmt->execute();
+$due = $stmt->get_result();
+
+while ($rec = $due->fetch_assoc()) {
+
+    $next = $rec['next_run']; 
+
+    while ($next <= $today) { 
+
+        $ins = $conn->prepare("INSERT INTO transactions (user_id, type, category, amount, description, date)
+         VALUES (?, ?, ?, ?, ?, ?)");
+        $ins->bind_param(
+            "issdss",
+            $rec['user_id'], $rec['type'], $rec['category'], $rec['amount'], $rec['description'], $next 
+        );
+        $ins->execute();
+
+        $next = match($rec['frequency']) {
+            'weekly'  => date('Y-m-d', strtotime($next . ' +1 week')), 
+            'monthly' => date('Y-m-d', strtotime($next . ' +1 month')),
+            default   => null 
+        };
+
+        if ($next === null) break; //proti zacyklení
+    }
+
+
+    $upd = $conn->prepare("UPDATE transactions SET next_run = ? WHERE id = ?");
+    $upd->bind_param('si', $next, $rec['id']);
+    $upd->execute();
+}
+$stmt->close();
+
 ?>
 
 
